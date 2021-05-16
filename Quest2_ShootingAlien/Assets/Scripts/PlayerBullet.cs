@@ -19,16 +19,16 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Monster") // BulletSpawner
-        {
-            BulletSpawner bulletmonster = other.GetComponent<BulletSpawner>();
+        //if (other.tag == "Monster") // BulletSpawner
+        //{
+        //    BulletSpawner bulletmonster = other.GetComponent<BulletSpawner>();
 
-            if (bulletmonster != null)
-            {
-                bulletmonster.GetDamage(attackAmount);
-            }
-        }
-        else if(other.tag == "Monster2") // Alien Monster
+        //    if (bulletmonster != null)
+        //    {
+        //        bulletmonster.GetDamage(attackAmount);
+        //    }
+        //}
+        if(other.tag == "Monster2") // Alien Monster
         {
             MonsterCtrl alien = other.GetComponent<MonsterCtrl>();
 

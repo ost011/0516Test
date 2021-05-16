@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class MonsterCtrl : MonoBehaviour {
     //몬스터의 상태 정보가 있는 Enumerable 변수 선언
@@ -12,7 +14,10 @@ public class MonsterCtrl : MonoBehaviour {
     private Transform playerTr;
     private UnityEngine.AI.NavMeshAgent nvAgent;
     private Animator animator;
-    
+    public float hp = 1500.0f;
+    int maxHp = 1500;
+    public Slider hpSlider;
+    public Text gameoverTxt;
     //추적 사정거리
     public float traceDist = 10.0f;
     //공격 사정거리
@@ -23,7 +28,7 @@ public class MonsterCtrl : MonoBehaviour {
     
       
     //몬스터 생명 변수
-    private int hp = 100;
+    //private int hp = 100;
     
   
     
@@ -47,6 +52,7 @@ public class MonsterCtrl : MonoBehaviour {
     
     void Update()
     {
+        hpSlider.value = (float)hp / (float)maxHp;
         //일정한 간격으로 몬스터의 행동 상태를 체크하는 코루틴 함수 실행
         StartCoroutine(this.CheckMonsterState());
 
@@ -134,20 +140,56 @@ public class MonsterCtrl : MonoBehaviour {
 
 
     //몬스터 사망 시 처리 루틴
+    //IEnumerator MonsterDie()
+    //{
+    //    if(isDie == true)
+    //    {
+    //        yield return null;
+    //    }
+    //    StopAllCoroutines();
+    //    isDie = true;
+    //    monsterState = MonsterState.die;
+    //    nvAgent.isStopped = true;
+    //    animator.SetTrigger("IsDie");
+
+    //    //문제시 자삭, IsDie anim 0.2초 후에 비활성화
+    //    yield return new WaitForSeconds(0.2f);
+    //    gameObject.SetActive(false);
+
+    //    //몬스터에 추가된 Collider를 비활성화
+    //    gameObject.GetComponentInChildren<CapsuleCollider>().enabled = false;
+    //    foreach (Collider coll in gameObject.GetComponentsInChildren<SphereCollider>())
+    //    {
+    //        coll.enabled = false;
+    //    }
+    //}
     void MonsterDie()
     {
         if (isDie == true) return;
 
         //모든 코루틴을 정지
-        StopAllCoroutines();      
+        StopAllCoroutines();
         isDie = true;
         monsterState = MonsterState.die;
         nvAgent.isStopped = true;
         animator.SetTrigger("IsDie");
+        //BossDead -> 보스 죽었을때 띄울 Text
+        
+        //GameManager gm = GameObject.FindObjectOfType<GameManager>();
+        //gm.BossDead();
+
+        GameManager alien = FindObjectOfType<GameManager>();
+        alien.gameoverTxt.SetActive(true);
+
+        //this.gameObject.hpSlider.SetActive(false);
+
+        //죽어도 총알이 날아오길래 bulletspawner 컴포넌트의 bulletPrefab란을 null값 줘버림
+        BulletSpawner bs = this.gameObject.GetComponent<BulletSpawner>();
+        bs.bulletPrefab=null;
 
         //몬스터에 추가된 Collider를 비활성화
-        gameObject.GetComponentInChildren<CapsuleCollider>().enabled = false;     
-        foreach(Collider coll in gameObject.GetComponentsInChildren<SphereCollider>())
+        gameObject.GetComponentInChildren<CapsuleCollider>().enabled = false;
+        foreach (Collider coll in gameObject.GetComponentsInChildren<SphereCollider>())
         {
             coll.enabled = false;
         }
@@ -155,11 +197,11 @@ public class MonsterCtrl : MonoBehaviour {
         FindObjectOfType<GameManager>().GetScored(2);
 
     }
-    
-    
-    
-       
-    
-    
-   
+
+
+
+
+
+
+
 }

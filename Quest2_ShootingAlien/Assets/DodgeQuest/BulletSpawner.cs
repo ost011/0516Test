@@ -13,9 +13,9 @@ public class BulletSpawner : MonoBehaviour
     private float spwanRate;
     private float timeAffterSpawn;
 
-    public float hp = 2000.0f;
-    int maxHp = 2000;
-    public Slider hpSlider;
+    //public float hp = 2500.0f;
+    //int maxHp = 2500;
+    //public Slider hpSlider;
 
     public AudioClip fireClip;
     AudioSource fireAudio;
@@ -51,23 +51,24 @@ public class BulletSpawner : MonoBehaviour
 
             spwanRate = Random.Range(spwanRateMin, spwanRateMax);
         }
-        hpSlider.value = (float)hp / (float)maxHp;
+        
+        //hpSlider.value = (float)hp / (float)maxHp;
 
     }
 
 
-    public void GetDamage(float amount)
-    {
-        hp -= amount;
+    //public void GetDamage(float amount)
+    //{
+    //    hp -= amount;
 
-        if(hp < 0)
-        {
-            //Bullet Spawner가 죽음 SetActive를 false로 설정
-            gameObject.SetActive(false);
+    //    if(hp < 0)
+    //    {
+    //        //Bullet Spawner가 죽음 SetActive를 false로 설정
+    //        gameObject.SetActive(false);
 
-            //FindObjectOfType<GameManager>().GetScored(1);
-        }
-    }
+    //        //FindObjectOfType<GameManager>().GetScored(1);
+    //    }
+    //}
 
 
 }

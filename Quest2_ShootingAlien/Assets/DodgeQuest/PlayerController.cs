@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     //private Rigidbody playerRigidbody;
     public float speed = 8f;
-    public float hp = 200.0f;
+    public float hp = 300.0f;
     //최대 hp
-    int maxHp = 200;
+    int maxHp = 300;
     //hpslider 변수
     public Slider hpSlider;
     // Start is called before the first frame update
