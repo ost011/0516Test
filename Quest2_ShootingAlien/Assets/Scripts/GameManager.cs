@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     int score;
     public bool isGameOver;
-    public GameObject gameoverTxt;
+    //public GameObject gameoverTxt;
     void Start()
     {
         score = 0;
@@ -38,8 +38,8 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
-    public void BossDead()
-    {
-        gameoverTxt.SetActive(true);
-    }
+    //public void BossDead()
+    //{
+    //    gameoverTxt.SetActive(true);
+    //}
 }

@@ -14,10 +14,10 @@ public class MonsterCtrl : MonoBehaviour {
     private Transform playerTr;
     private UnityEngine.AI.NavMeshAgent nvAgent;
     private Animator animator;
-    public float hp = 1500.0f;
-    int maxHp = 1500;
+    public float hp = 800.0f;
+    int maxHp = 800;
     public Slider hpSlider;
-    public Text gameoverTxt;
+    //public GameObject gameoverTxt;
     //추적 사정거리
     public float traceDist = 10.0f;
     //공격 사정거리
@@ -173,15 +173,21 @@ public class MonsterCtrl : MonoBehaviour {
         monsterState = MonsterState.die;
         nvAgent.isStopped = true;
         animator.SetTrigger("IsDie");
-        //BossDead -> 보스 죽었을때 띄울 Text
-        
+
+        //hpSlider를 지우고 싶음. 허나 안됨.
+        //hpSlider = null;
+
         //GameManager gm = GameObject.FindObjectOfType<GameManager>();
         //gm.BossDead();
 
-        GameManager alien = FindObjectOfType<GameManager>();
-        alien.gameoverTxt.SetActive(true);
+        //GameManager alien = FindObjectOfType<GameManager>();
+        //alien.
+        //BossDead -> 보스 죽었을때 띄울 Text
+        //gameoverTxt.SetActive(true);
+        FindObjectOfType<MenuUI>().BossDie();
+        //3초 후에 setactive(false)
 
-        //this.gameObject.hpSlider.SetActive(false);
+        
 
         //죽어도 총알이 날아오길래 bulletspawner 컴포넌트의 bulletPrefab란을 null값 줘버림
         BulletSpawner bs = this.gameObject.GetComponent<BulletSpawner>();
@@ -193,9 +199,12 @@ public class MonsterCtrl : MonoBehaviour {
         {
             coll.enabled = false;
         }
-        // 외계인은 2점!
-        FindObjectOfType<GameManager>().GetScored(2);
-
+        //Invoke("disappear3Sec", 3f);
+        Destroy(gameObject, 3f);
+    }
+    void disappear3Sec()
+    {
+        gameObject.SetActive(false);
     }
 
 
